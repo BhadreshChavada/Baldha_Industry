@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">BaldhaIndustry</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="state_prompt">Choose a State</string>
+
+    <string-array name="state_arrays">
+        <item>Select State</item>
+        <item>Gujarat</item>
+        <item>Andhra Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Goa</item>
+    </string-array>
+
+    <string-array name="consitution">
+        <item>Select Consitution</item>
+        <item>Proprietorship</item>
+        <item>Partenership</item>
+        <item>PVT Limited</item>
+    </string-array>
+
+    <string-array name="country_arrays">
+        <item>Select Country</item>
+        <item>India</item>
+
+    </string-array>
+
+    <string-array name="shop_array">
+        <item>Select Shop</item>
+        <item>Shreenath Electronic</item>
+    </string-array>
+    <string-array name="category_array">
+        <item>Select Category</item>
+        <item>AC</item>
+        <item>Fan</item>
+        <item>TV</item>
+    </string-array>
+
+    <string-array name="product_array">
+        <item>Select Product</item>
+    </string-array>
+    <string name="city_prompt">Choose a City</string>
+
+    <string-array name="city_arrays">
+        <item>Select City</item>
+        <item>Ahmedabad</item>
+        <item>Baroda</item>
+        <item>Rajkot</item>
+        <item>Surat</item>
+    </string-array>
+
+    <string-array name="district_arrays">
+        <item>Select City</item>
+        <item>Ahmedabad</item>
+        <item>Baroda</item>
+        <item>Rajkot</item>
+        <item>Surat</item>
+    </string-array>
+
+    <string-array name="office_building">
+        <item>Office Building</item>
+        <item>Owned</item>
+        <item>Rent</item>
+    </string-array>
+
+    <string-array name="gowdown_building">
+        <item>Gowdown Building</item>
+        <item>Owned</item>
+        <item>Rent</item>
+    </string-array>
+
+    <string-array name="ready_stock_booking_supply">
+        <item>Ready Stock Booking Supply</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+</resources>

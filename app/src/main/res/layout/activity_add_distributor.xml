@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    android:orientation="vertical"
+    android:padding="@dimen/_15sdp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Distributor /Stockist Appointment Form ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Contact Person"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Name of Partener / Directors"
+                android:maxLines="3"
+                android:minLines="3"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/consitution"></Spinner>
+
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Address / Locality"
+                android:maxLines="3"
+                android:minLines="3"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Year of establishment"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/state_arrays"></Spinner>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/district_arrays"></Spinner>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/city_arrays"></Spinner>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="PinCode"
+                android:inputType="number"
+                android:maxLength="6"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Vat"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Tin"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="CST"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="PAN"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Super stokist / CSA name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Agriculture license no"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Drug licence no"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Contact Information ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Email"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Contact no"
+                android:inputType="number"
+                android:maxLength="10"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Mobile no."
+                android:inputType="number"
+                android:maxLength="10"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Banker Information ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Bank Name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Account no"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Bank Branch"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Infrastructure ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/office_building"></Spinner>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="office Area sqr feet"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/gowdown_building"></Spinner>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Gowdown Area sqr feet"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Area of BIPL"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No. of VAN"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No. of Auto"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No. of Cycle"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No. of trucks"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No. of Deliverymen / salesmen"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Any"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="No"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Number of employee"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Number of people working for BIPL"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Business Details ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Annual turnover in Rs. BIPL"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Annual turnover in Rs. Other"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Annual turnover in Rs. Total"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Avg. Stock holding (in days)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext"
+                android:padding="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:entries="@array/ready_stock_booking_supply"></Spinner>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Retailers covered directly count"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Visit frequency in days"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Wholesaler covered directly count"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Visit frequency in days"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- Other Companies Product handled ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Company Name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Types of business"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Area"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Gross Annual turnover(Rs Lacs)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Company Name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Types of business"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Area"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Gross Annual turnover(Rs Lacs)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Company Name"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Types of business"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Area"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Gross Annual turnover(Rs Lacs)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="--- BIPL business details - Existing/Expected ---"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Date of start business with BIPL"
+                android:inputType="date"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Area"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Total Investment towards BIPL in Lacks"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Annual turnover(Rs. Lacks)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Average Stock holding in days"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Stock value(Rs. Lacks)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Average Marketing outstanding in days"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Debators value(Rs. Lacks)"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="BIPL Product handled"
+                android:maxLines="3"
+                android:minLines="3"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Payment Terms"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Mode of Payment"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/btn_common_blue"
+                android:padding="@dimen/_15sdp"
+                android:text="SUBMIT"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
