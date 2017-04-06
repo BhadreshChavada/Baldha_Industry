@@ -17,13 +17,15 @@
 
         </activity>
         <activity android:name="prerak.com.baldha.MainActivity"></activity>
-        <activity android:name=".AddDistributorActivity">
+        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShopListActivity" />
+        <activity android:name=".OrderActivity" />
     </application>
 
 </manifest>

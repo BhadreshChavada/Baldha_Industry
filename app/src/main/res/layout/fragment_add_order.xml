@@ -42,17 +42,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/edittext_shape" />
 
-            <EditText
-                android:id="@+id/et_quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/edittext_shape"
-                android:digits="1234567890"
-                android:hint="Enter Quantity"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLines="1" />
+
 
             <Button
                 android:id="@+id/btn_submit"

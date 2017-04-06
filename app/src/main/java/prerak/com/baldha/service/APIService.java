@@ -31,10 +31,12 @@ public interface APIService {
     Call<ForgotPass> getForgotPassCall(
             @QueryMap Map<String, String> params
     );
+
     @GET("webservices/insertShop")
     Call<InsertShop> getInsertShopCall(
             @QueryMap Map<String, Object> params
     );
+
     @GET("webservices/getCountry")
     Call<CountrySpinner> getCountrySpinnerCall();
 
@@ -48,18 +50,18 @@ public interface APIService {
     Call<CitySpinner> getCitySpinnerCall();
 
     @GET("webservices/getShop")
-    Call<GetShop> getShopCall();
+    Call<GetShop> getShopCall(@QueryMap Map<String, String> params);
 
     @GET("webservices/getCategory")
     Call<GetCategory> getCategoryCall();
 
     @GET("webservices/getProduct")
     Call<GetProduct> getProductCall(
-            @QueryMap Map<String,String> params
+            @QueryMap Map<String, String> params
     );
 
     @GET("webservices/insertOrder")
     Call<GetProduct> InsertOrderCall(
-            @QueryMap Map<String,String> params
+            @QueryMap Map<String, String> params
     );
 }

@@ -82,51 +82,51 @@ public class AddOrderFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getShop();
+//                getShop();
             }
         }, 1000);
 
         return mView;
     }
 
-    private void getShop() {
-//        AppConstant.showProgressDialog(getContext(), "Loading", "Please Wait");
-        final APIService shopService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
-        Call<GetShop> categoryCall = shopService.getShopCall();
-        Log.d("url", categoryCall.request().url().toString());
-        categoryCall.enqueue(new Callback<GetShop>() {
-            @Override
-            public void onResponse(Call<GetShop> call, Response<GetShop> response) {
-                if (response.body() != null && response.body().getShop() != null) {
+//    private void getShop() {
+////        AppConstant.showProgressDialog(getContext(), "Loading", "Please Wait");
+//        final APIService shopService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+////        Call<GetShop> categoryCall = shopService.getShopCall();
+//        Log.d("url", categoryCall.request().url().toString());
+//        categoryCall.enqueue(new Callback<GetShop>() {
+//            @Override
+//            public void onResponse(Call<GetShop> call, Response<GetShop> response) {
+//                if (response.body() != null && response.body().getShop() != null) {
+////                    AppConstant.hideProgressDialog();
+//                    if (mShopList.size() > 0) {
+//                        mShopList.clear();
+//                    }
+//                    mShopList.add("Please Select Shop");
+//                    for (int i = 0; i < response.body().getShop().size(); i++) {
+//                        //Bundle mBundle=new Bundle();
+//                        //String cityID =mBundle.getString("cityID");
+//                        //Toast.makeText(getContext(), "cityID" + cityID, Toast.LENGTH_SHORT).show();
+//                        // if (cityID.equals(response.body().getShop().get(i).getCityID()))
+//                        mShopList.add(response.body().getShop().get(i).getShopName());
+//                    }
+//                    final ArrayAdapter<String> shopAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mShopList);
+//                    shopAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                    mShop.setAdapter(shopAdapter);
+//
+//                } else {
 //                    AppConstant.hideProgressDialog();
-                    if (mShopList.size() > 0) {
-                        mShopList.clear();
-                    }
-                    mShopList.add("Please Select Shop");
-                    for (int i = 0; i < response.body().getShop().size(); i++) {
-                        //Bundle mBundle=new Bundle();
-                        //String cityID =mBundle.getString("cityID");
-                        //Toast.makeText(getContext(), "cityID" + cityID, Toast.LENGTH_SHORT).show();
-                        // if (cityID.equals(response.body().getShop().get(i).getCityID()))
-                        mShopList.add(response.body().getShop().get(i).getShopName());
-                    }
-                    final ArrayAdapter<String> shopAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mShopList);
-                    shopAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mShop.setAdapter(shopAdapter);
-
-                } else {
-                    AppConstant.hideProgressDialog();
-                    Toast.makeText(getContext(), "Response Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetShop> call, Throwable t) {
-                AppConstant.hideProgressDialog();
-                Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//                    Toast.makeText(getContext(), "Response Error", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetShop> call, Throwable t) {
+//                AppConstant.hideProgressDialog();
+//                Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void getCategory() {
 //        AppConstant.showProgressDialog(getContext(), "Loading", "Please Wait");
