@@ -3,6 +3,7 @@ package prerak.com.baldha;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,6 +25,7 @@ import prerak.com.baldha.model.login.getProduct.GetProduct;
 import prerak.com.baldha.model.login.getcategory.Category;
 import prerak.com.baldha.model.login.getcategory.GetCategory;
 import prerak.com.baldha.service.APIService;
+import prerak.com.baldha.service.GPSTracker;
 import prerak.com.baldha.util.AppConstant;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +35,7 @@ import retrofit2.Response;
  * Created by Bhadresh Chavada on 06-04-2017.
  */
 
-public class OrderActivity extends Activity {
+public class OrderActivity extends AppCompatActivity {
 
     LinearLayout layout_ordermenu;
     Button btn_add_layout;
@@ -43,6 +45,10 @@ public class OrderActivity extends Activity {
     private List<String> mProductList = new ArrayList<>();
     private List<Category> mCategories = new ArrayList<>();
     private Spinner mCategory, mProduct;
+    String CategoryID = "", ProductID = "", Quantity = "";
+    EditText et_quantity;
+    Button btn_submit_order;
+    String Lat, Lon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,25 +61,45 @@ public class OrderActivity extends Activity {
     void init() {
         layout_ordermenu = (LinearLayout) findViewById(R.id.layout_ordermenu);
 
-
 //        LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 //        view = mInflater.inflate(R.layout.order_layout, null, false);
 //        layout_ordermenu.addView(view);
 
-
         btn_add_layout = (Button) findViewById(R.id.btn_add_layout);
+        btn_submit_order = (Button) findViewById(R.id.btn_submit_order);
+        btn_add_layout.setVisibility(View.GONE);
 
         mList.add("Please Select Category");
         mProductList.add("Please Select Product");
 
-        AddView();
+
         btn_add_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                MakeString();
                 AddView();
 
             }
         });
+
+        btn_submit_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                GPSTracker gpsTracker = new GPSTracker(OrderActivity.this);
+                Lat = String.valueOf(gpsTracker.getLatitude());
+                Lon = String.valueOf(gpsTracker.getLongitude());
+
+                Log.d("Lat", Lat);
+                Log.d("Lon", Lon);
+
+                MakeString();
+            }
+        });
+
+        getCategory();
+        getProduct();
     }
 
     void AddView() {
@@ -85,7 +111,7 @@ public class OrderActivity extends Activity {
         mCategory = (Spinner) view.findViewById(R.id.sp_category);
         mProduct = (Spinner) view.findViewById(R.id.sp_product);
 
-        EditText et_quantity = (EditText) view.findViewById(R.id.et_quantity);
+        et_quantity = (EditText) view.findViewById(R.id.et_quantity);
         et_quantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,6 +128,14 @@ public class OrderActivity extends Activity {
 
             }
         });
+
+        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, mList);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategory.setAdapter(categoryAdapter);
+
+        final ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, mProductList);
+        productAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mProduct.setAdapter(productAdapter);
     }
 
     private void getCategory() {
@@ -122,9 +156,7 @@ public class OrderActivity extends Activity {
                     for (int i = 0; i < response.body().getCategory().size(); i++) {
                         mList.add(response.body().getCategory().get(i).getCatName());
                     }
-                    final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, mList);
-                    categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mCategory.setAdapter(categoryAdapter);
+
 
                 } else {
                     AppConstant.hideProgressDialog();
@@ -159,9 +191,7 @@ public class OrderActivity extends Activity {
                     for (int i = 0; i < response.body().getProduct().size(); i++) {
                         mProductList.add(response.body().getProduct().get(i).getProductName());
                     }
-                    final ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, mProductList);
-                    productAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mProduct.setAdapter(productAdapter);
+                    AddView();
                     // getProduct(mCategories.get(position).getCatID());
                 } else {
                     AppConstant.hideProgressDialog();
@@ -175,6 +205,29 @@ public class OrderActivity extends Activity {
                 Toast.makeText(OrderActivity.this, "Failure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void MakeString() {
+        if (CategoryID.equals("")) {
+            CategoryID = mCategory.getSelectedItem().toString();
+        } else {
+            CategoryID += "," + mCategory.getSelectedItem().toString();
+        }
+        if (ProductID.equals("")) {
+
+            ProductID = mProduct.getSelectedItem().toString();
+        } else {
+
+            ProductID += "," + mProduct.getSelectedItem().toString();
+        }
+        if (Quantity.equals("")) {
+            Quantity = et_quantity.getText().toString();
+        } else {
+
+            Quantity += "," + et_quantity.getText().toString();
+        }
+
+        Log.d("CategoryID", CategoryID + "--" + ProductID + "--" + Quantity);
     }
 
 }
