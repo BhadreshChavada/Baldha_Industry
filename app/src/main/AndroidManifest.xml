@@ -9,7 +9,6 @@
 
     <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
@@ -33,6 +32,7 @@
         </activity>
         <activity android:name=".ShopListActivity" />
         <activity android:name=".OrderActivity" />
+        <activity android:name=".AddDistributorActivity" />
     </application>
 
 </manifest>

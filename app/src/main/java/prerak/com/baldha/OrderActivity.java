@@ -1,8 +1,15 @@
 package prerak.com.baldha;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +33,7 @@ import prerak.com.baldha.model.login.getcategory.Category;
 import prerak.com.baldha.model.login.getcategory.GetCategory;
 import prerak.com.baldha.service.APIService;
 import prerak.com.baldha.service.GPSTracker;
+import prerak.com.baldha.service.TrackGPS;
 import prerak.com.baldha.util.AppConstant;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +45,7 @@ import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1;
     LinearLayout layout_ordermenu;
     Button btn_add_layout;
     View view;
@@ -87,9 +96,11 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                GPSTracker gpsTracker = new GPSTracker(OrderActivity.this);
-                Lat = String.valueOf(gpsTracker.getLatitude());
-                Lon = String.valueOf(gpsTracker.getLongitude());
+//                GPSTracker gpsTracker = new GPSTracker(OrderActivity.this);
+//                Lat = String.valueOf(gpsTracker.getLatitude());
+//                Lon = String.valueOf(gpsTracker.getLongitude());
+
+                turnGPSOff();
 
                 Log.d("Lat", Lat);
                 Log.d("Lon", Lon);
@@ -100,6 +111,36 @@ public class OrderActivity extends AppCompatActivity {
 
         getCategory();
         getProduct();
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(OrderActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(OrderActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(OrderActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            Location();
+        }
+
     }
 
     void AddView() {
@@ -230,4 +271,60 @@ public class OrderActivity extends AppCompatActivity {
         Log.d("CategoryID", CategoryID + "--" + ProductID + "--" + Quantity);
     }
 
+    void Location() {
+        TrackGPS gps = new TrackGPS(OrderActivity.this);
+
+        if (gps.canGetLocation()) {
+
+
+            Lat = String.valueOf(gps.getLongitude());
+            Lat = String.valueOf(gps.getLatitude());
+
+//            Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
+        } else {
+
+            gps.showSettingsAlert();
+        }
+
+    }
+
+    private void turnGPSOff() {
+
+        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if (provider.contains("gps")) { //if gps is enabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            sendBroadcast(poke);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    Location();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 }
+
+
