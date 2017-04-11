@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +54,8 @@ import retrofit2.Response;
 public class ShopListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 1;
+    private static final int MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_CAMERA = 3;
     RecyclerView mRecyclerView;
     ShopAdapter mAdapter;
     Button btn_add_shop, btn_cancel;
@@ -155,7 +158,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShopListActivity.this,
                             new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                            1);
+                            MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
                 } else {
                     OpenGallery();
                 }
@@ -166,13 +169,14 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ShopListActivity.this,
                             new String[]{android.Manifest.permission.CAMERA},
-                            2);
+                            MY_PERMISSIONS_REQUEST_ACCESS_CAMERA);
                 } else {
                     OpenCamera();
                 }
                 break;
             case R.id.btn_submit:
                 InsertStore();
+                dialog.dismiss();
                 break;
             case R.id.btn_cancel:
                 dialog.dismiss();
@@ -188,6 +192,16 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
         dialog = new Dialog(ShopListActivity.this);
         dialog.setTitle("Add New Shop");
         dialog.setContentView(R.layout.dialog_shop);
+
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+
         btn_submit = (Button) dialog.findViewById(R.id.btn_submit);
         btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         btn_gallery = (Button) dialog.findViewById(R.id.btn_gallery);
@@ -203,8 +217,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
         btn_camera.setOnClickListener(this);
         btn_gallery.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-
-        dialog.show();
+        btn_cancel.setOnClickListener(this);
 
 
         if (ContextCompat.checkSelfPermission(ShopListActivity.this,
@@ -411,6 +424,46 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 }
                 return;
             }
+            case MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // gallery-related task you need to do.
+
+                    OpenGallery();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(ShopListActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_ACCESS_CAMERA: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // camera-related task you need to do.
+
+                    OpenCamera();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(ShopListActivity.this, "Permission denied to open Camera", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
 
             // other 'case' lines to check for other
             // permissions this app might request
