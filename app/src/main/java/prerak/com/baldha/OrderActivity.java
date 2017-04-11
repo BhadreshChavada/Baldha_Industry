@@ -2,9 +2,13 @@ package prerak.com.baldha;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -33,8 +37,10 @@ import prerak.com.baldha.model.login.getcategory.Category;
 import prerak.com.baldha.model.login.getcategory.GetCategory;
 import prerak.com.baldha.service.APIService;
 import prerak.com.baldha.service.GPSTracker;
+//import prerak.com.baldha.service.TrackGPS;
 import prerak.com.baldha.service.TrackGPS;
 import prerak.com.baldha.util.AppConstant;
+import prerak.com.baldha.util.SharedPreferences_baldaha;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +63,8 @@ public class OrderActivity extends AppCompatActivity {
     String CategoryID = "", ProductID = "", Quantity = "";
     EditText et_quantity;
     Button btn_submit_order;
-    String Lat, Lon;
+    String Lat = "0.0", Lon = "0.0";
+    int level;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,12 +107,15 @@ public class OrderActivity extends AppCompatActivity {
 //                Lat = String.valueOf(gpsTracker.getLatitude());
 //                Lon = String.valueOf(gpsTracker.getLongitude());
 
-                turnGPSOff();
 
-                Log.d("Lat", Lat);
-                Log.d("Lon", Lon);
+//                turnGPSOff();
+
+//                Log.d("Lat", Lat);
+//                Log.d("Lon", Lon);
 
                 MakeString();
+
+                InsertOrder();
             }
         });
 
@@ -140,6 +150,8 @@ public class OrderActivity extends AppCompatActivity {
         } else {
             Location();
         }
+
+        registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
     }
 
@@ -277,7 +289,7 @@ public class OrderActivity extends AppCompatActivity {
         if (gps.canGetLocation()) {
 
 
-            Lat = String.valueOf(gps.getLongitude());
+            Lon = String.valueOf(gps.getLongitude());
             Lat = String.valueOf(gps.getLatitude());
 
 //            Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
@@ -325,6 +337,57 @@ public class OrderActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
+
+
+    // 3 time open Location
+
+    void InsertOrder() {
+        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
+        final APIService productService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+        Map<String, String> productMap = new HashMap<>();
+        productMap.put("userID", "4");
+        productMap.put("shopID", "1");
+        productMap.put("productID", ProductID);
+        productMap.put("cityID", "1");
+        productMap.put("categoryID", CategoryID);
+        productMap.put("batterylvl", String.valueOf(level));
+        productMap.put("lat", String.valueOf(Lat));
+        productMap.put("long", String.valueOf(Lon));
+
+        Call<GetProduct> productCall = productService.InsertOrderCall(productMap);
+        Log.d("url", productCall.request().url().toString());
+        productCall.enqueue(new Callback<GetProduct>() {
+            @Override
+            public void onResponse(Call<GetProduct> call, Response<GetProduct> response) {
+
+                AppConstant.hideProgressDialog();
+                Intent mIntent = new Intent(OrderActivity.this, MenuActivity.class);
+                startActivity(mIntent);
+
+//                if (response.body() != null) {
+//
+//                } else {
+//                    AppConstant.hideProgressDialog();
+//                    Toast.makeText(getContext(), "Response Error", Toast.LENGTH_SHORT).show();
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProduct> call, Throwable t) {
+                AppConstant.hideProgressDialog();
+                Toast.makeText(OrderActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+
+        }
+    };
 }
 
 
