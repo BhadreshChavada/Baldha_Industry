@@ -25,6 +25,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_shopname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -35,6 +36,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_ownername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -45,6 +47,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_partenername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -57,6 +60,7 @@
                 android:textColorHint="@color/gray" />
 
             <Spinner
+                android:id="@+id/sp_consitutuion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -66,7 +70,7 @@
 
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -79,6 +83,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_yearestalishment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -91,6 +96,7 @@
                 android:textColorHint="@color/gray" />
 
             <Spinner
+                android:id="@+id/sp_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -99,6 +105,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <Spinner
+                android:id="@+id/sp_district"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -107,6 +114,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <Spinner
+                android:id="@+id/sp_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -115,6 +123,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <EditText
+                android:id="@+id/edt_pincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -127,6 +136,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_vat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -137,6 +147,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_tin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -147,6 +158,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_cst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -157,6 +169,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_pan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -167,6 +180,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_csa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -177,6 +191,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_agriculturelicno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -187,6 +202,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_drug_lic_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -207,6 +223,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -217,6 +234,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_contactno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -229,6 +247,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_mobileno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -251,6 +270,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_bankname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -261,6 +281,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_accountno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -272,6 +293,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bankbranch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -292,6 +314,7 @@
                 android:textStyle="bold" />
 
             <Spinner
+                android:id="@+id/sp_office"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -300,6 +323,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <EditText
+                android:id="@+id/edt_office_sqr_ft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -311,6 +335,7 @@
                 android:textColorHint="@color/gray" />
 
             <Spinner
+                android:id="@+id/sp_gowdown_building"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -319,6 +344,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <EditText
+                android:id="@+id/edt_gowdown_sqr_ft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -339,6 +365,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_van"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -350,6 +377,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -361,6 +389,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_cycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -372,6 +401,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_truck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -383,6 +413,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_salesman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -394,6 +425,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_any_vehicel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -404,6 +436,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_any_vehicel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -415,6 +448,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_employee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -426,6 +460,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_no_working_bipl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -447,6 +482,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_annual_turnover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -458,6 +494,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_annual_turnover_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -469,6 +506,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_annual_turnover_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -481,6 +519,7 @@
 
 
             <EditText
+                android:id="@+id/edt_avg_stock_holding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -492,6 +531,7 @@
                 android:textColorHint="@color/gray" />
 
             <Spinner
+                android:id="@+id/sp_ready_stock_booking_supply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -500,6 +540,7 @@
                 android:padding="@dimen/_18sdp"></Spinner>
 
             <EditText
+                android:id="@+id/edt_retailer_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -511,6 +552,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_freuence_visit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -522,6 +564,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_wholesaler_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -533,6 +576,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_visit_frequency_days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -554,6 +598,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_other_companyname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -564,6 +609,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_type_business"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -574,6 +620,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -584,6 +631,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_gross_annual_turnover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -595,6 +643,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_other_companyname_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -605,6 +654,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_type_business_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -615,6 +665,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_area_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -625,6 +676,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_gross_annual_turnover_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -636,6 +688,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_other_companyname_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -646,6 +699,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_type_business_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -656,6 +710,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_area_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -666,6 +721,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_gross_annual_turnover_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -687,6 +743,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edt_business_startdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -698,6 +755,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bipl_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -708,6 +766,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_totalinvestment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -719,6 +778,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/bipl_annual_turnover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -730,6 +790,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bipl_avg_stock_holding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -741,6 +802,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bipl_stockvalue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -752,6 +814,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bipl_avg_stock_holding_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -763,6 +826,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_bipl_debators"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -774,6 +838,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_product_handled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -786,6 +851,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_payment_tearms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -796,6 +862,7 @@
                 android:textColorHint="@color/gray" />
 
             <EditText
+                android:id="@+id/edt_mode_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -806,6 +873,7 @@
                 android:textColorHint="@color/gray" />
 
             <Button
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"

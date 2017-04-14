@@ -109,13 +109,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        mForgot_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater layoutInflater_factory = LayoutInflater.from(LoginActivity.this);
-                showForgetPasswordDialog(layoutInflater_factory);
-            }
-        });
+//        mForgot_password.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LayoutInflater layoutInflater_factory = LayoutInflater.from(LoginActivity.this);
+//                showForgetPasswordDialog(layoutInflater_factory);
+//            }
+//        });
     }
 
     //Todo: initialization here
@@ -127,63 +127,63 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //Todo:// forgot dialog
-    private void showForgetPasswordDialog(final LayoutInflater layoutInflater_factory) {
-        final View forgetDialogView = layoutInflater_factory.inflate(R.layout.forget_password, null);
-        final AlertDialog forgetDialog = new AlertDialog.Builder(LoginActivity.this).create();
-        forgetDialog.setView(forgetDialogView);
-        forgetDialogView.findViewById(R.id.mButton_submit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //your business logic
-                mEditText_email = (EditText) forgetDialogView.findViewById(R.id.et_email);
-                email = mEditText_email.getText().toString();
-                if (!email.equalsIgnoreCase("")) {
-                    if (email.contains("@") && email.contains(".")) {
-                        mProgressDialog.show();
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("email", email);
-
-                        mAPIService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
-                        Call<ForgotPass> mEmailValidationCall = mAPIService.getForgotPassCall(params);
-                        Log.e("url", "" + mEmailValidationCall.request().url());
-                        mEmailValidationCall.enqueue(new Callback<ForgotPass>() {
-                            @Override
-                            public void onResponse(Call<ForgotPass> call, Response<ForgotPass> response) {
-                                if (response.body() != null) {
-                                    if (response.body().getStatus().equalsIgnoreCase("success")) {
-                                        forgetDialog.dismiss();
-                                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        //showChangePasswordDialog(layoutInflater_factory);
-                                        new SharedPreferences_baldaha().SaveValue(LoginActivity.this, "1");
-
-                                    } else if (response.body().getStatus().equalsIgnoreCase("error")) {
-                                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                        mProgressDialog.dismiss();
-                                    }
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Response Error", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ForgotPass> call, Throwable t) {
-                                Toast.makeText(LoginActivity.this, "CONNECTION PROBLEM", Toast.LENGTH_SHORT).show();
-                                mProgressDialog.dismiss();
-                            }
-                        });
-                    } else {
-                        mEditText_email.setError("PLEASE ENTER VALID EMAIL ID");
-                        mEditText_email.requestFocus();
-                    }
-                } else {
-                    mEditText_email.setError("PLEASE ENTER EMAIL ID");
-                    mEditText_email.requestFocus();
-                }
-                //deleteDialog.dismiss();
-            }
-        });
-        forgetDialog.show();
-    }
+//    //Todo:// forgot dialog
+//    private void showForgetPasswordDialog(final LayoutInflater layoutInflater_factory) {
+//        final View forgetDialogView = layoutInflater_factory.inflate(R.layout.forget_password, null);
+//        final AlertDialog forgetDialog = new AlertDialog.Builder(LoginActivity.this).create();
+//        forgetDialog.setView(forgetDialogView);
+//        forgetDialogView.findViewById(R.id.mButton_submit).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //your business logic
+//                mEditText_email = (EditText) forgetDialogView.findViewById(R.id.et_email);
+//                email = mEditText_email.getText().toString();
+//                if (!email.equalsIgnoreCase("")) {
+//                    if (email.contains("@") && email.contains(".")) {
+//                        mProgressDialog.show();
+//                        Map<String, String> params = new HashMap<String, String>();
+//                        params.put("email", email);
+//
+//                        mAPIService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+//                        Call<ForgotPass> mEmailValidationCall = mAPIService.getForgotPassCall(params);
+//                        Log.e("url", "" + mEmailValidationCall.request().url());
+//                        mEmailValidationCall.enqueue(new Callback<ForgotPass>() {
+//                            @Override
+//                            public void onResponse(Call<ForgotPass> call, Response<ForgotPass> response) {
+//                                if (response.body() != null) {
+//                                    if (response.body().getStatus().equalsIgnoreCase("success")) {
+//                                        forgetDialog.dismiss();
+//                                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                                        //showChangePasswordDialog(layoutInflater_factory);
+//                                        new SharedPreferences_baldaha().SaveValue(LoginActivity.this, "4", SharedPreferences_baldaha.USERID);
+//
+//                                    } else if (response.body().getStatus().equalsIgnoreCase("error")) {
+//                                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                                        mProgressDialog.dismiss();
+//                                    }
+//                                } else {
+//                                    Toast.makeText(LoginActivity.this, "Response Error", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<ForgotPass> call, Throwable t) {
+//                                Toast.makeText(LoginActivity.this, "CONNECTION PROBLEM", Toast.LENGTH_SHORT).show();
+//                                mProgressDialog.dismiss();
+//                            }
+//                        });
+//                    } else {
+//                        mEditText_email.setError("PLEASE ENTER VALID EMAIL ID");
+//                        mEditText_email.requestFocus();
+//                    }
+//                } else {
+//                    mEditText_email.setError("PLEASE ENTER EMAIL ID");
+//                    mEditText_email.requestFocus();
+//                }
+//                //deleteDialog.dismiss();
+//            }
+//        });
+//        forgetDialog.show();
+//    }
 
 }

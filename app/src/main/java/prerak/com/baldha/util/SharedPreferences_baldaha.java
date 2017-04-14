@@ -11,12 +11,13 @@ import prerak.com.baldha.R;
 
 public class SharedPreferences_baldaha {
 
-    public static String USERID = "";
+    public static String USERID="USERID";
+//    public static String
 
-    public static void SaveValue(Context context, String value) {
+    public static void SaveValue(Context context, String value, String Key) {
         SharedPreferences sharedPref = context.getSharedPreferences("Shared", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(USERID, value);
+        editor.putString(Key, value);
         editor.commit();
     }
 
