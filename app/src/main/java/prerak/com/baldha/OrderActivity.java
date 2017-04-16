@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import prerak.com.baldha.model.login.getProduct.GetProduct;
+import prerak.com.baldha.model.login.getProduct.Product;
 import prerak.com.baldha.model.login.getcategory.Category;
 import prerak.com.baldha.model.login.getcategory.GetCategory;
 import prerak.com.baldha.service.APIService;
@@ -59,12 +61,14 @@ public class OrderActivity extends AppCompatActivity {
     private List<String> mShopList = new ArrayList<>();
     private List<String> mProductList = new ArrayList<>();
     private List<Category> mCategories = new ArrayList<>();
+    private List<Product> mProductArray = new ArrayList<>();
     private Spinner mCategory, mProduct;
-    String CategoryID = "", ProductID = "", Quantity = "";
+    String CategoryID = "", ProductID = "", Quantity = "", shopID;
     EditText et_quantity;
     Button btn_submit_order;
     String Lat = "0.0", Lon = "0.0";
     int level;
+    String USERID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,11 +79,15 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     void init() {
+
+        USERID = SharedPreferences_baldaha.GetValue(OrderActivity.this, SharedPreferences_baldaha.USERID);
         layout_ordermenu = (LinearLayout) findViewById(R.id.layout_ordermenu);
 
 //        LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 //        view = mInflater.inflate(R.layout.order_layout, null, false);
 //        layout_ordermenu.addView(view);
+
+        shopID = getIntent().getStringExtra("ShopId");
 
         btn_add_layout = (Button) findViewById(R.id.btn_add_layout);
         btn_submit_order = (Button) findViewById(R.id.btn_submit_order);
@@ -120,7 +128,7 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         getCategory();
-        getProduct();
+//        getProduct();
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(OrderActivity.this,
@@ -189,10 +197,24 @@ public class OrderActivity extends AppCompatActivity {
         final ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, mProductList);
         productAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mProduct.setAdapter(productAdapter);
+
+        mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    getProduct(mCategories.get(position - 1).getCatID());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getCategory() {
-//        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
+        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
         final APIService categoryService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
         Call<GetCategory> categoryCall = categoryService.getCategoryCall();
         Log.d("url", categoryCall.request().url().toString());
@@ -200,16 +222,18 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetCategory> call, Response<GetCategory> response) {
                 if (response.body() != null && response.body().getCategory() != null) {
-//                    AppConstant.hideProgressDialog();
+                    AppConstant.hideProgressDialog();
 
                     if (mList.size() > 0) {
                         mList.clear();
                     }
+
+                    mCategories = response.body().getCategory();
                     mList.add("Please Select Category");
                     for (int i = 0; i < response.body().getCategory().size(); i++) {
                         mList.add(response.body().getCategory().get(i).getCatName());
                     }
-
+                    AddView();
 
                 } else {
                     AppConstant.hideProgressDialog();
@@ -225,26 +249,27 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
-    private void getProduct() {
-//        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
+    private void getProduct(String categoryId) {
+        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
         final APIService productService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
         Map<String, String> productMap = new HashMap<>();
-        productMap.put("catID", "1");
+        productMap.put("catID", categoryId);
         Call<GetProduct> productCall = productService.getProductCall(productMap);
         Log.d("url", productCall.request().url().toString());
         productCall.enqueue(new Callback<GetProduct>() {
             @Override
             public void onResponse(Call<GetProduct> call, Response<GetProduct> response) {
                 if (response.body() != null && response.body().getProduct() != null) {
-//                    AppConstant.hideProgressDialog();
+                    AppConstant.hideProgressDialog();
                     if (mProductList.size() > 0) {
                         mProductList.clear();
                     }
+                    mProductArray = response.body().getProduct();
                     mProductList.add("Please Select Product");
                     for (int i = 0; i < response.body().getProduct().size(); i++) {
                         mProductList.add(response.body().getProduct().get(i).getProductName());
                     }
-                    AddView();
+
                     // getProduct(mCategories.get(position).getCatID());
                 } else {
                     AppConstant.hideProgressDialog();
@@ -262,16 +287,18 @@ public class OrderActivity extends AppCompatActivity {
 
     public void MakeString() {
         if (CategoryID.equals("")) {
-            CategoryID = mCategory.getSelectedItem().toString();
+            CategoryID = mCategories.get(mCategory.getSelectedItemPosition() - 1).getCatID();
         } else {
-            CategoryID += "," + mCategory.getSelectedItem().toString();
+            CategoryID += "," + mCategories.get(mCategory.getSelectedItemPosition() - 1).getCatID();
         }
         if (ProductID.equals("")) {
 
-            ProductID = mProduct.getSelectedItem().toString();
+            ProductID = mProductArray.get(mProduct.getSelectedItemPosition() - 1).getProductID();
+
+//                    mProduct.getSelectedItem().toString();
         } else {
 
-            ProductID += "," + mProduct.getSelectedItem().toString();
+            ProductID += "," + mProductArray.get(mProduct.getSelectedItemPosition() - 1).getProductID();
         }
         if (Quantity.equals("")) {
             Quantity = et_quantity.getText().toString();
@@ -345,14 +372,14 @@ public class OrderActivity extends AppCompatActivity {
         AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
         final APIService productService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
         Map<String, String> productMap = new HashMap<>();
-        productMap.put("userID", "4");
-        productMap.put("shopID", "1");
+        productMap.put("userID", USERID);
+        productMap.put("shopID", shopID);
         productMap.put("productID", ProductID);
-        productMap.put("cityID", "1");
         productMap.put("categoryID", CategoryID);
         productMap.put("batterylvl", String.valueOf(level));
         productMap.put("lat", String.valueOf(Lat));
         productMap.put("long", String.valueOf(Lon));
+        productMap.put("qnt", Quantity);
 
         Call<GetProduct> productCall = productService.InsertOrderCall(productMap);
         Log.d("url", productCall.request().url().toString());

@@ -1,0 +1,135 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    card_view:cardCornerRadius="5dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:text="Shift Start Date Time"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:text=":"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/txt_startdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:text="Shift End Date Time"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:text=":"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/txt_enddate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:text="Total No. Order"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:text=":"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/txt_order_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+    </TableLayout>
+</android.support.v7.widget.CardView>

@@ -3,10 +3,15 @@ package prerak.com.baldha.service;
 import java.util.Map;
 import java.util.Objects;
 
+import prerak.com.baldha.model.login.DailyReport.DailyReportModel;
 import prerak.com.baldha.model.login.District.DistrictModel;
+import prerak.com.baldha.model.login.EndShiftModel;
 import prerak.com.baldha.model.login.ForgotPass;
+import prerak.com.baldha.model.login.GetArea.Area;
 import prerak.com.baldha.model.login.InsertShop;
 import prerak.com.baldha.model.login.Login;
+import prerak.com.baldha.model.login.OrderModel.OrderList;
+import prerak.com.baldha.model.login.ShiftModel;
 import prerak.com.baldha.model.login.city.CitySpinner;
 import prerak.com.baldha.model.login.country.CountrySpinner;
 import prerak.com.baldha.model.login.distric.District;
@@ -37,6 +42,15 @@ public interface APIService {
             @QueryMap Map<String, Object> params
     );
 
+    @GET("webservices/insertDistributor")
+    Call<InsertShop> insertDistributorCall(
+            @QueryMap Map<String, String> params
+    );
+
+    @GET("webservices/getArea")
+    Call<Area> getAreaCall(@QueryMap Map<String, String> params);
+
+
     @GET("webservices/getCountry")
     Call<CountrySpinner> getCountrySpinnerCall();
 
@@ -52,6 +66,9 @@ public interface APIService {
     @GET("webservices/getShop")
     Call<GetShop> getShopCall(@QueryMap Map<String, String> params);
 
+    @GET("webservices/getOrder")
+    Call<OrderList> getOrderCall(@QueryMap Map<String, String> params);
+
     @GET("webservices/getCategory")
     Call<GetCategory> getCategoryCall();
 
@@ -64,4 +81,13 @@ public interface APIService {
     Call<GetProduct> InsertOrderCall(
             @QueryMap Map<String, String> params
     );
+
+    @GET("webservices/insertUsershift")
+    Call<ShiftModel> startShiftCall(@QueryMap Map<String, String> params);
+
+    @GET("webservices/updateUsershift")
+    Call<EndShiftModel> endShiftCall(@QueryMap Map<String, String> params);
+
+    @GET("webservices/dailyReport")
+    Call<DailyReportModel> dailyReportCall(@QueryMap Map<String, String> params);
 }

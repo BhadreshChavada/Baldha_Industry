@@ -81,16 +81,20 @@ public class LoginActivity extends AppCompatActivity {
                                     if (response.body().getStatus().equalsIgnoreCase("success")) {
                                         mProgressDialog.hide();
                                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                        Intent mIntent = new Intent(LoginActivity.this, MainActivity.class);
+
+                                        SharedPreferences_baldaha.SaveValue(LoginActivity.this, SharedPreferences_baldaha.USERID, response.body().getUserDetails().getId());
+
+
+                                        Intent mIntent = new Intent(LoginActivity.this, MenuActivity.class);
                                         startActivity(mIntent);
                                         finish();
                                     } else {
                                         mProgressDialog.hide();
-                                        Toast.makeText(LoginActivity.this, "Response false", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UserName Password Mismatch", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
                                     mProgressDialog.hide();
-                                    Toast.makeText(LoginActivity.this, "Response Error", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "UserName Password Mismatch", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

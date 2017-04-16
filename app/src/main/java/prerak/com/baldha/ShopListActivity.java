@@ -1,6 +1,5 @@
 package prerak.com.baldha;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -25,24 +24,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import prerak.com.baldha.Adapter.ShopAdapter;
+import prerak.com.baldha.model.login.GetArea.Area;
+import prerak.com.baldha.model.login.GetArea.AreaList;
 import prerak.com.baldha.model.login.InsertShop;
 import prerak.com.baldha.model.login.getshop.GetShop;
 import prerak.com.baldha.model.login.getshop.Shop;
 import prerak.com.baldha.service.APIService;
-import prerak.com.baldha.service.GPSTracker;
 import prerak.com.baldha.service.TrackGPS;
 import prerak.com.baldha.util.AppConstant;
+import prerak.com.baldha.util.SharedPreferences_baldaha;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,8 +69,12 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
     private byte[] byteArray;
     private String str_image;
     private EditText mShopName, mOwnerName, mAddress, mContact;
-    private String Lat, Lon;
+    private String Lat = "0.0", Lon = "0.0";
     Dialog dialog;
+    private ArrayList<String> AreaName = new ArrayList<>();
+    private Spinner sp_area;
+    private List<AreaList> mArea;
+    String USERID;
 
 
     @Override
@@ -80,6 +85,9 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     void init() {
+
+        USERID = SharedPreferences_baldaha.GetValue(ShopListActivity.this, SharedPreferences_baldaha.USERID);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -94,11 +102,11 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getShop() {
-        AppConstant.showProgressDialog(ShopListActivity.this, "Loading", "Please Wait");
+        AppConstant.showProgressDialog(ShopListActivity.this, "Get Shop List", "Please Wait");
         final APIService shopService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
 
         Map<String, String> shopmap = new HashMap<>();
-        shopmap.put("userID", "4");
+        shopmap.put("userID", USERID);
 
         Call<GetShop> categoryCall = shopService.getShopCall(shopmap);
         Log.d("url", categoryCall.request().url().toString());
@@ -213,6 +221,9 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
         mAddress = (EditText) dialog.findViewById(R.id.edt_address);
         mContact = (EditText) dialog.findViewById(R.id.edt_contact);
 
+        sp_area = (Spinner) dialog.findViewById(R.id.sp_area);
+
+        getArea();
 
         btn_camera.setOnClickListener(this);
         btn_gallery.setOnClickListener(this);
@@ -347,6 +358,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 shopMap.put("image", str_image);
                 shopMap.put("lat", Lat);
                 shopMap.put("long", Lon);
+                shopMap.put("areaID", mArea.get(sp_area.getSelectedItemPosition() - 1).getAreaID());
                 APIService registerService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
                 Call<InsertShop> insertShopCall = registerService.getInsertShopCall(shopMap);
                 Log.d("url", insertShopCall.request().url().toString());
@@ -359,6 +371,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                                 //startActivity(new Intent(SignUp.this, Verified.class));
                                 //finish();
                                 Toast.makeText(ShopListActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                init();
                             } else {
                                 Toast.makeText(ShopListActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -485,5 +498,43 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
             gps.showSettingsAlert();
         }
 
+    }
+
+    private void getArea() {
+//        AppConstant.showProgressDialog(ShopListActivity.this, "Loading", "Please Wait");
+        final APIService countryService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("userID", USERID);
+        Call<Area> AreaCall = countryService.getAreaCall(map);
+        Log.d("url", AreaCall.request().url().toString());
+        AreaCall.enqueue(new Callback<Area>() {
+            @Override
+            public void onResponse(Call<Area> call, Response<Area> response) {
+                if (response.body() != null && response.body().getArea() != null) {
+//                    AppConstant.hideProgressDialog();
+                    AreaName.add("Please Select Area");
+                    for (int i = 0; i < response.body().getArea().size(); i++) {
+                        AreaName.add(response.body().getArea().get(i).getAreaName());
+                    }
+                    final ArrayAdapter<String> AreaAdapter = new ArrayAdapter<String>(ShopListActivity.this, android.R.layout.simple_spinner_item, AreaName);
+                    AreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    sp_area.setAdapter(AreaAdapter);
+
+
+                    mArea = response.body().getArea();
+
+
+                } else {
+//                    AppConstant.hideProgressDialog();
+                    Toast.makeText(ShopListActivity.this, "No Area Assign", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Area> call, Throwable t) {
+//                AppConstant.hideProgressDialog();
+                Toast.makeText(ShopListActivity.this, "No Area Assign", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

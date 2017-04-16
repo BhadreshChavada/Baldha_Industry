@@ -29,7 +29,7 @@
         </activity>
         <activity android:name="prerak.com.baldha.MainActivity"></activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".SplushScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +40,12 @@
         <activity android:name=".ShopListActivity" />
         <activity android:name=".OrderActivity" />
         <activity android:name=".AddDistributorActivity" />
+        <activity android:name=".OrderListActivity" />
+        <activity
+            android:name=".MenuActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".DailyReport" />
+
     </application>
 
 </manifest>
