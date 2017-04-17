@@ -57,7 +57,7 @@
             android:layout_marginTop="130dp"
             android:background="@drawable/hexagon_gray"
             android:padding="@dimen/_15sdp"
-            android:text="Add New Order"
+            android:text="Add New \n Order"
             android:textColor="@android:color/white" />
 
         <Button
@@ -67,7 +67,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/hexagon_blue"
-            android:text="List   of   Order"
+            android:text="Order \n List"
             android:textColor="@android:color/white" />
 
         <Button
@@ -80,7 +80,7 @@
             android:layout_toEndOf="@+id/btn_list_order"
             android:layout_toRightOf="@+id/btn_list_order"
             android:background="@drawable/hexagon_blue"
-            android:text="Daily    Report"
+            android:text="Daily \n Report"
             android:textColor="@android:color/white" />
 
         <Button
@@ -88,26 +88,26 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
 
+            android:layout_below="@+id/btn_list_order"
             android:layout_marginLeft="30dp"
             android:layout_marginStart="30dp"
-            android:background="@drawable/hexagon_gray"
-            android:text="Add Distributor"
-            android:textColor="@android:color/white"
-            android:layout_below="@+id/btn_list_order"
+            android:layout_toEndOf="@+id/btn_neworder"
             android:layout_toRightOf="@+id/btn_neworder"
-            android:layout_toEndOf="@+id/btn_neworder" />
+            android:background="@drawable/hexagon_gray"
+            android:text="Add \n Distributor"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_start_shift"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignLeft="@+id/btn_list_order"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/btn_list_order"
             android:layout_marginBottom="23dp"
             android:background="@drawable/hexagon_blue"
-            android:text="Start       Shift"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/btn_list_order"
-            android:layout_alignStart="@+id/btn_list_order" />
+            android:text="Start \n Shift"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_end_shift"
@@ -118,7 +118,7 @@
             android:layout_toLeftOf="@+id/btn_start_shift"
             android:layout_toStartOf="@+id/btn_start_shift"
             android:background="@drawable/hexagon_blue"
-            android:text="End          Shift"
+            android:text="End \n Shift"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 

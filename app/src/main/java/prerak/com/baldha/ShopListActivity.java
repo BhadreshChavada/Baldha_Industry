@@ -526,14 +526,16 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
                 } else {
 //                    AppConstant.hideProgressDialog();
-                    Toast.makeText(ShopListActivity.this, "No Area Assign", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    Toast.makeText(ShopListActivity.this, "To add the Shop Contact Admin... \n To assign the Area", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Area> call, Throwable t) {
 //                AppConstant.hideProgressDialog();
-                Toast.makeText(ShopListActivity.this, "No Area Assign", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                Toast.makeText(ShopListActivity.this, "To add the Shop Contact Admin... \n To assign the Area", Toast.LENGTH_SHORT).show();
             }
         });
     }

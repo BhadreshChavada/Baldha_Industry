@@ -46,6 +46,11 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".DailyReport" />
 
+        <receiver android:name=".Receiver.NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
