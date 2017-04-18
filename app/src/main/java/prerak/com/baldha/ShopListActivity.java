@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import prerak.com.baldha.Adapter.ShopAdapter;
+import prerak.com.baldha.Sqlite.Database;
 import prerak.com.baldha.model.login.GetArea.Area;
 import prerak.com.baldha.model.login.GetArea.AreaList;
 import prerak.com.baldha.model.login.InsertShop;
@@ -96,7 +98,10 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
         btn_add_shop = (Button) findViewById(R.id.btn_add_shop);
         btn_add_shop.setOnClickListener(this);
-        getShop();
+        if (AppConstant.isNetworkAvailable(ShopListActivity.this))
+            getShop();
+        else
+            getOfflineShop();
         search(searchView);
 
     }
@@ -116,9 +121,26 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 AppConstant.hideProgressDialog();
                 if (response.body() != null && response.body().getShop() != null) {
 
-                    ArrayList<Shop> mArrayList = new ArrayList<Shop>(response.body().getShop());
-                    mAdapter = new ShopAdapter(mArrayList, ShopListActivity.this);
-                    mRecyclerView.setAdapter(mAdapter);
+                    Database db = new Database(ShopListActivity.this);
+                    if (db.getShopCount() == response.body().getShop().size()) {
+
+                        ArrayList<Shop> mArrayList = new ArrayList<Shop>(response.body().getShop());
+                        mAdapter = new ShopAdapter(mArrayList, ShopListActivity.this);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                    } else {
+
+//                        db.deleteAllShop();
+                        ArrayList<Shop> mArrayList = new ArrayList<Shop>(response.body().getShop());
+
+                        for (int i = 0; i < mArrayList.size(); i++) {
+                            db.InsertShop(mArrayList.get(i));
+                        }
+                        mAdapter = new ShopAdapter(mArrayList, ShopListActivity.this);
+                        mRecyclerView.setAdapter(mAdapter);
+
+
+                    }
 
                 } else {
                     AppConstant.hideProgressDialog();
@@ -132,6 +154,16 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(ShopListActivity.this, "Failure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void getOfflineShop() {
+
+//        ArrayList<Shop> mArrayList = new ArrayList<Shop>();
+        Database db = new Database(ShopListActivity.this);
+//        mArrayList = ;
+        mAdapter = new ShopAdapter(db.getAllShop(), ShopListActivity.this);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     private void search(SearchView searchView) {
@@ -223,7 +255,10 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
         sp_area = (Spinner) dialog.findViewById(R.id.sp_area);
 
-        getArea();
+        if (AppConstant.isNetworkAvailable(ShopListActivity.this))
+            getArea();
+        else
+            getOfflineArea();
 
         btn_camera.setOnClickListener(this);
         btn_gallery.setOnClickListener(this);
@@ -258,6 +293,21 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
         } else {
             Location();
         }
+
+    }
+
+    private void getOfflineArea() {
+
+        List<AreaList> list = new Database(ShopListActivity.this).getAllArea();
+        AreaName.add("Please Select Area");
+        for (int i = 0; i < list.size(); i++) {
+            AreaName.add(list.get(i).getAreaName());
+        }
+        mArea = list;
+        final ArrayAdapter<String> AreaAdapter = new ArrayAdapter<String>(ShopListActivity.this, android.R.layout.simple_spinner_item, AreaName);
+        AreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_area.setAdapter(AreaAdapter);
+
 
     }
 
@@ -513,14 +563,25 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 if (response.body() != null && response.body().getArea() != null) {
 //                    AppConstant.hideProgressDialog();
                     AreaName.add("Please Select Area");
-                    for (int i = 0; i < response.body().getArea().size(); i++) {
-                        AreaName.add(response.body().getArea().get(i).getAreaName());
+                    Database db = new Database(ShopListActivity.this);
+                    if (db.getAreaCount() == response.body().getArea().size()) {
+                        for (int i = 0; i < response.body().getArea().size(); i++) {
+                            AreaName.add(response.body().getArea().get(i).getAreaName());
+                        }
+                    } else {
+
+//                        db.DropAreaTable();
+
+//                        db.deleteAllArea();
+                        for (int i = 0; i < response.body().getArea().size(); i++) {
+                            AreaName.add(response.body().getArea().get(i).getAreaName());
+                            db.InsertArea(response.body().getArea().get(i));
+                        }
                     }
+
                     final ArrayAdapter<String> AreaAdapter = new ArrayAdapter<String>(ShopListActivity.this, android.R.layout.simple_spinner_item, AreaName);
                     AreaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     sp_area.setAdapter(AreaAdapter);
-
-
                     mArea = response.body().getArea();
 
 
