@@ -34,6 +34,25 @@ public class Shop {
     @Expose
     private String _long;
 
+    private String AreaID;
+    String ID;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getAreaID() {
+        return AreaID;
+    }
+
+    public void setAreaID(String areaID) {
+        AreaID = areaID;
+    }
+
     public String getShopID() {
         return shopID;
     }

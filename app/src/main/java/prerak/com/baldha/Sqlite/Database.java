@@ -55,9 +55,16 @@ public class Database extends SQLiteOpenHelper {
     private static final String LON = "lon";
     private static final String AREAID = "areaID";
 
+    private static final String TABLE_NEW_SHOP = "Shop_new";
+
     String CREATE_SHOP_TABLE = "CREATE TABLE " + TABLE_SHOP + "("
             + ID + " INTEGER PRIMARY KEY," + SHOPID + " TEXT,"
             + SHOPNAME + " TEXT," + OWNERNAME + " TEXT," + ADDRESS + " TEXT," + CITYID + " TEXT," + CONTACTNO + " TEXT," + IMAGE + " TEXT," + LAT + " TEXT," + LON + " TEXT," + AREAID + " TEXT" + ")";
+
+    String CREATE_NEW_SHOP_TABLE = "CREATE TABLE " + TABLE_NEW_SHOP + "("
+            + ID + " INTEGER PRIMARY KEY," + SHOPID + " TEXT,"
+            + SHOPNAME + " TEXT," + OWNERNAME + " TEXT," + ADDRESS + " TEXT," + CITYID + " TEXT," + CONTACTNO + " TEXT," + IMAGE + " TEXT," + LAT + " TEXT," + LON + " TEXT," + AREAID + " TEXT" + ")";
+
 
     //Category Variable and query
     private static final String TABLE_CATEGORY = "Category";
@@ -93,6 +100,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_SHOP_TABLE);
         db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_PRODUCT_TABLE);
+        db.execSQL(CREATE_NEW_SHOP_TABLE);
     }
 
     @Override
@@ -158,6 +166,14 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
+    //Delete Area()
+    public void deleteArea() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_AREA);
+        db.close();
+    }
+
 //    //Drop Area Table()
 //    public void deleteAllArea() {
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -181,7 +197,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(IMAGE, shop.getImage());
         values.put(LAT, shop.getLat());
         values.put(LON, shop.getLong());
-        values.put(AREA_ID, "");
+        values.put(AREA_ID, shop.getAreaID());
 
         // Inserting Row
         db.insert(TABLE_SHOP, null, values);
@@ -232,6 +248,14 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
+    //Delete Shop()
+    public void deleteShop() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_SHOP);
+        db.close();
+    }
+
     //Drop Area Table()
 //    public void deleteAllShop() {
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -250,7 +274,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(CATEGORYDESCRIPTION, category.getCatDescription());
 
         // Inserting Row
-        db.insert(TABLE_AREA, null, values);
+        db.insert(TABLE_CATEGORY, null, values);
         db.close();
     }
 
@@ -291,6 +315,14 @@ public class Database extends SQLiteOpenHelper {
         return count;
     }
 
+    //Delete Category()
+    public void deleteCategory() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_CATEGORY);
+        db.close();
+    }
+
 //    //Drop Area Table()
 //    public void deleteAllArea() {
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -311,15 +343,15 @@ public class Database extends SQLiteOpenHelper {
         values.put(CATEGORYID, CatID);
 
         // Inserting Row
-        db.insert(TABLE_AREA, null, values);
+        db.insert(TABLE_PRODUCT, null, values);
         db.close();
     }
 
     // Get ProductList
-    public List<Product> getAllProduct() {
+    public List<Product> getAllProduct(String CatID) {
         List<Product> ProductList = new ArrayList<>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_CATEGORY;
+        String selectQuery = "SELECT  * FROM " + TABLE_PRODUCT + " WHERE " + CATEGORYID + " = " + CatID;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -342,7 +374,7 @@ public class Database extends SQLiteOpenHelper {
 
     //get Product Count
     public int getProductCount(String ID) {
-        String countQuery = "SELECT  * FROM " + TABLE_CATEGORY + "WHERE " + CATEGORYID + " " + ID;
+        String countQuery = "SELECT  * FROM " + TABLE_PRODUCT + " WHERE " + CATEGORYID + " = " + ID;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
@@ -351,4 +383,90 @@ public class Database extends SQLiteOpenHelper {
         // return count
         return count;
     }
+
+
+    //Delete Product()
+    public void deleteProduct() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_PRODUCT);
+        db.close();
+    }
+
+
+    //New Added Shop
+    public void InsertNewShop(Shop shop) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SHOPID, shop.getShopID());
+        values.put(SHOPNAME, shop.getShopName());
+        values.put(OWNERNAME, shop.getOwnerName());
+        values.put(ADDRESS, shop.getAddress());
+        values.put(CITYID, shop.getCityID());
+        values.put(CONTACTNO, shop.getContactNO());
+        values.put(IMAGE, shop.getImage());
+        values.put(LAT, shop.getLat());
+        values.put(LON, shop.getLong());
+        values.put(AREA_ID, shop.getAreaID());
+
+        // Inserting Row
+        db.insert(TABLE_NEW_SHOP, null, values);
+        db.close();
+    }
+
+    // Get ShopList
+    public ArrayList<Shop> getAllNewShop() {
+        ArrayList<Shop> shopList = new ArrayList<Shop>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_NEW_SHOP;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Shop shop = new Shop();
+                shop.setID(cursor.getString(0));
+                shop.setShopID(cursor.getString(1));
+                shop.setShopName(cursor.getString(2));
+                shop.setOwnerName(cursor.getString(3));
+                shop.setAddress(cursor.getString(4));
+                shop.setCityID(cursor.getString(5));
+                shop.setContactNO(cursor.getString(6));
+                shop.setImage(cursor.getString(7));
+                shop.setLat(cursor.getString(8));
+                shop.setLong(cursor.getString(9));
+                shop.setAreaID(cursor.getString(10));
+
+                // Adding Area to list
+                shopList.add(shop);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return shopList;
+    }
+
+    //get Shop Count
+    public int getNewShopCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_NEW_SHOP;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+    //Delete Record()
+    public void deleteNewShop(String Id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_NEW_SHOP + " WHERE " + ID + " = " + Id);
+        db.close();
+    }
+
 }

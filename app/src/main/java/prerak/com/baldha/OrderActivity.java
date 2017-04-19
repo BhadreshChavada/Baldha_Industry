@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import prerak.com.baldha.Sqlite.Database;
+import prerak.com.baldha.model.login.OrderModel.Order;
 import prerak.com.baldha.model.login.getProduct.GetProduct;
 import prerak.com.baldha.model.login.getProduct.Product;
 import prerak.com.baldha.model.login.getcategory.Category;
@@ -127,7 +129,12 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        getCategory();
+        if (AppConstant.isNetworkAvailable(OrderActivity.this)) {
+            getCategory();
+        } else {
+            getOfflineCategory();
+        }
+
 //        getProduct();
 
         // Here, thisActivity is the current activity
@@ -161,6 +168,23 @@ public class OrderActivity extends AppCompatActivity {
 
         registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
+    }
+
+    private void getOfflineCategory() {
+
+        if (mList.size() > 0) {
+            mList.clear();
+            mCategories.clear();
+        }
+
+        Database db = new Database(OrderActivity.this);
+        mCategories = db.getAllCategory();
+        mList.add("Please Select Category");
+
+        for (int i = 0; i < mCategories.size(); i++) {
+            mList.add(mCategories.get(i).getCatName());
+        }
+        AddView();
     }
 
     void AddView() {
@@ -202,7 +226,12 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    getProduct(mCategories.get(position - 1).getCatID());
+
+                    if (AppConstant.isNetworkAvailable(OrderActivity.this)) {
+                        getProduct(mCategories.get(position - 1).getCatID());
+                    } else {
+                        getProductOffiline(mCategories.get(position - 1).getCatID());
+                    }
                 }
             }
 
@@ -211,6 +240,22 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void getProductOffiline(String catID) {
+
+        if (mProductList.size() > 0) {
+            mProductList.clear();
+            mProductArray.clear();
+        }
+
+        Database db = new Database(OrderActivity.this);
+        mProductArray = db.getAllProduct(catID);
+        mProductList.add("Please Select Product");
+        for (int i = 0; i < mProductArray.size(); i++) {
+            mProductList.add(mProductArray.get(i).getProductName());
+        }
+
     }
 
     private void getCategory() {
@@ -224,14 +269,29 @@ public class OrderActivity extends AppCompatActivity {
                 if (response.body() != null && response.body().getCategory() != null) {
                     AppConstant.hideProgressDialog();
 
+
                     if (mList.size() > 0) {
                         mList.clear();
+                        mCategories.clear();
                     }
+
 
                     mCategories = response.body().getCategory();
                     mList.add("Please Select Category");
-                    for (int i = 0; i < response.body().getCategory().size(); i++) {
-                        mList.add(response.body().getCategory().get(i).getCatName());
+                    Database db = new Database(OrderActivity.this);
+                    if (db.getCategoryCount() == response.body().getCategory().size()) {
+
+                        for (int i = 0; i < response.body().getCategory().size(); i++) {
+                            mList.add(response.body().getCategory().get(i).getCatName());
+                        }
+                    } else {
+                        db.deleteCategory();
+                        for (int i = 0; i < response.body().getCategory().size(); i++) {
+                            mList.add(response.body().getCategory().get(i).getCatName());
+                            db.InsertCategory(response.body().getCategory().get(i));
+                        }
+
+
                     }
                     AddView();
 
@@ -249,7 +309,7 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
-    private void getProduct(String categoryId) {
+    private void getProduct(final String categoryId) {
         AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
         final APIService productService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
         Map<String, String> productMap = new HashMap<>();
@@ -263,11 +323,22 @@ public class OrderActivity extends AppCompatActivity {
                     AppConstant.hideProgressDialog();
                     if (mProductList.size() > 0) {
                         mProductList.clear();
+                        mProductArray.clear();
                     }
                     mProductArray = response.body().getProduct();
                     mProductList.add("Please Select Product");
-                    for (int i = 0; i < response.body().getProduct().size(); i++) {
-                        mProductList.add(response.body().getProduct().get(i).getProductName());
+                    Database db = new Database(OrderActivity.this);
+
+                    if (db.getProductCount(categoryId) == response.body().getProduct().size()) {
+                        for (int i = 0; i < response.body().getProduct().size(); i++) {
+                            mProductList.add(response.body().getProduct().get(i).getProductName());
+                        }
+                    } else {
+                        db.deleteProduct();
+                        for (int i = 0; i < response.body().getProduct().size(); i++) {
+                            db.InsertProduct(response.body().getProduct().get(i), categoryId);
+                            mProductList.add(response.body().getProduct().get(i).getProductName());
+                        }
                     }
 
                     // getProduct(mCategories.get(position).getCatID());

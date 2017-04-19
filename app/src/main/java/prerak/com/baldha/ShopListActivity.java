@@ -98,12 +98,64 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
         btn_add_shop = (Button) findViewById(R.id.btn_add_shop);
         btn_add_shop.setOnClickListener(this);
-        if (AppConstant.isNetworkAvailable(ShopListActivity.this))
+        if (AppConstant.isNetworkAvailable(ShopListActivity.this)) {
+            Database database = new Database(ShopListActivity.this);
+            ArrayList<Shop> mSHOP = database.getAllNewShop();
+            if (mSHOP.size() > 0) {
+                for (int i = 0; i < mSHOP.size(); i++) {
+                    InsertNewStore(mSHOP.get(i));
+                }
+            }
             getShop();
-        else
+        } else
             getOfflineShop();
         search(searchView);
 
+    }
+
+    private void InsertNewStore(final Shop shop) {
+
+        Map<String, Object> shopMap = new HashMap<>();
+        shopMap.put("shopName", shop.getShopName());
+        shopMap.put("ownerName", shop.getOwnerName());
+        shopMap.put("address", shop.getAddress());
+        shopMap.put("cityID", "1");
+        shopMap.put("contactNO", shop.getContactNO());
+        shopMap.put("image", shop.getImage());
+        shopMap.put("lat", shop.getLat());
+        shopMap.put("long", shop.getLong());
+        shopMap.put("areaID", shop.getAreaID());
+        APIService registerService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+        Call<InsertShop> insertShopCall = registerService.getInsertShopCall(shopMap);
+        Log.d("url", insertShopCall.request().url().toString());
+        insertShopCall.enqueue(new Callback<InsertShop>() {
+            @Override
+            public void onResponse(Call<InsertShop> call, Response<InsertShop> response) {
+
+                if (response.body() != null) {
+                    if (response.body().getStatus().equals("success")) {
+                        //startActivity(new Intent(SignUp.this, Verified.class));
+                        //finish();
+
+                        Database db = new Database(ShopListActivity.this);
+                        db.deleteNewShop(shop.getID());
+                        Toast.makeText(ShopListActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        init();
+                    } else {
+                        Toast.makeText(ShopListActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+
+                    Toast.makeText(ShopListActivity.this, "Response error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InsertShop> call, Throwable t) {
+
+
+            }
+        });
     }
 
     private void getShop() {
@@ -130,7 +182,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 
                     } else {
 
-//                        db.deleteAllShop();
+                        db.deleteShop();
                         ArrayList<Shop> mArrayList = new ArrayList<Shop>(response.body().getShop());
 
                         for (int i = 0; i < mArrayList.size(); i++) {
@@ -215,7 +267,11 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.btn_submit:
-                InsertStore();
+                if (AppConstant.isNetworkAvailable(ShopListActivity.this)) {
+                    InsertStore();
+                } else {
+                    InsertStoreOffline();
+                }
                 dialog.dismiss();
                 break;
             case R.id.btn_cancel:
@@ -299,6 +355,10 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
     private void getOfflineArea() {
 
         List<AreaList> list = new Database(ShopListActivity.this).getAllArea();
+        if (AreaName.size() > 0) {
+//            list.clear();
+            AreaName.clear();
+        }
         AreaName.add("Please Select Area");
         for (int i = 0; i < list.size(); i++) {
             AreaName.add(list.get(i).getAreaName());
@@ -443,6 +503,33 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    void InsertStoreOffline() {
+        String shopName = mShopName.getText().toString();
+        String ownerName = mOwnerName.getText().toString();
+        String address = mAddress.getText().toString();
+        String contactNO = mContact.getText().toString();
+
+        Shop shop = new Shop();
+        shop.setShopID("TEMP10");
+        shop.setShopName(shopName);
+        shop.setOwnerName(ownerName);
+        shop.setAddress(address);
+        shop.setCityID("1");
+        shop.setContactNO(contactNO);
+        shop.setImage(str_image);
+        shop.setLat(Lat);
+        shop.setLong(Lon);
+        shop.setAreaID(mArea.get(sp_area.getSelectedItemPosition() - 1).getAreaID());
+
+
+        Database db = new Database(ShopListActivity.this);
+        db.InsertShop(shop);
+        db.InsertNewShop(shop);
+
+        init();
+
+    }
+
     private boolean validation() {
         if (mShopName.getText().toString().length() == 0) {
             mShopName.setError("Enter Shop Name");
@@ -562,6 +649,9 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<Area> call, Response<Area> response) {
                 if (response.body() != null && response.body().getArea() != null) {
 //                    AppConstant.hideProgressDialog();
+
+                    if (AreaName.size() > 0)
+                        AreaName.clear();
                     AreaName.add("Please Select Area");
                     Database db = new Database(ShopListActivity.this);
                     if (db.getAreaCount() == response.body().getArea().size()) {
@@ -573,6 +663,7 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
 //                        db.DropAreaTable();
 
 //                        db.deleteAllArea();
+                        db.deleteArea();
                         for (int i = 0; i < response.body().getArea().size(); i++) {
                             AreaName.add(response.body().getArea().get(i).getAreaName());
                             db.InsertArea(response.body().getArea().get(i));
