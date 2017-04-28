@@ -40,6 +40,7 @@ import prerak.com.baldha.Sqlite.Database;
 import prerak.com.baldha.model.login.GetArea.Area;
 import prerak.com.baldha.model.login.GetArea.AreaList;
 import prerak.com.baldha.model.login.InsertShop;
+import prerak.com.baldha.model.login.OrderModel.OrderInsert;
 import prerak.com.baldha.model.login.getshop.GetShop;
 import prerak.com.baldha.model.login.getshop.Shop;
 import prerak.com.baldha.service.APIService;
@@ -106,12 +107,16 @@ public class ShopListActivity extends AppCompatActivity implements View.OnClickL
                     InsertNewStore(mSHOP.get(i));
                 }
             }
+
+
             getShop();
         } else
             getOfflineShop();
         search(searchView);
 
     }
+
+
 
     private void InsertNewStore(final Shop shop) {
 

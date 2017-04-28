@@ -35,6 +35,7 @@ import java.util.Map;
 
 import prerak.com.baldha.Sqlite.Database;
 import prerak.com.baldha.model.login.OrderModel.Order;
+import prerak.com.baldha.model.login.OrderModel.OrderInsert;
 import prerak.com.baldha.model.login.getProduct.GetProduct;
 import prerak.com.baldha.model.login.getProduct.Product;
 import prerak.com.baldha.model.login.getcategory.Category;
@@ -124,8 +125,34 @@ public class OrderActivity extends AppCompatActivity {
 //                Log.d("Lon", Lon);
 
                 MakeString();
+                Database database = new Database(OrderActivity.this);
 
-                InsertOrder();
+                if (AppConstant.isNetworkAvailable(OrderActivity.this)) {
+                    InsertOrder();
+
+                    ArrayList<OrderInsert> mOrder = database.getAllOrder();
+                    if (mOrder.size() > 0) {
+                        for (int i = 0; i < mOrder.size(); i++) {
+                            InsertNewOrder(mOrder.get(i));
+                        }
+                    }
+                } else {
+
+
+                    OrderInsert orderInsert = new OrderInsert();
+                    orderInsert.setSHOPID(shopID);
+                    orderInsert.setPRODUCTID(ProductID);
+                    orderInsert.setCATEGORYID(CategoryID);
+                    orderInsert.setBETTERYLEVEL(String.valueOf(level));
+                    orderInsert.setLAT(String.valueOf(Lat));
+                    orderInsert.setLON(String.valueOf(Lon));
+                    orderInsert.setQUANTITY(Quantity);
+
+                    database.InsertOrder(orderInsert);
+
+
+                }
+
             }
         });
 
@@ -167,6 +194,41 @@ public class OrderActivity extends AppCompatActivity {
         }
 
         registerReceiver(batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+    }
+
+    private void InsertNewOrder(final OrderInsert orderInsert) {
+
+        final Database database = new Database(OrderActivity.this);
+        AppConstant.showProgressDialog(OrderActivity.this, "Loading", "Please Wait");
+        final APIService productService = AppConstant.setupRetrofit(AppConstant.BASE_URL);
+        Map<String, String> productMap = new HashMap<>();
+        productMap.put("userID", USERID);
+        productMap.put("shopID", orderInsert.getSHOPID());
+        productMap.put("productID", orderInsert.getPRODUCTID());
+        productMap.put("categoryID", orderInsert.getCATEGORYID());
+        productMap.put("batterylvl", orderInsert.getBETTERYLEVEL());
+        productMap.put("lat", orderInsert.getLAT());
+        productMap.put("long", orderInsert.getLON());
+        productMap.put("qnt", orderInsert.getQUANTITY());
+
+        Call<GetProduct> productCall = productService.InsertOrderCall(productMap);
+        Log.d("url", productCall.request().url().toString());
+        productCall.enqueue(new Callback<GetProduct>() {
+            @Override
+            public void onResponse(Call<GetProduct> call, Response<GetProduct> response) {
+
+                AppConstant.hideProgressDialog();
+                database.deleteNewOrder(orderInsert.getID());
+
+            }
+
+            @Override
+            public void onFailure(Call<GetProduct> call, Throwable t) {
+                AppConstant.hideProgressDialog();
+                Toast.makeText(OrderActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

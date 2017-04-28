@@ -11,6 +11,8 @@ import java.util.List;
 
 import prerak.com.baldha.model.login.GetArea.Area;
 import prerak.com.baldha.model.login.GetArea.AreaList;
+import prerak.com.baldha.model.login.OrderModel.Order;
+import prerak.com.baldha.model.login.OrderModel.OrderInsert;
 import prerak.com.baldha.model.login.getProduct.Product;
 import prerak.com.baldha.model.login.getcategory.Category;
 import prerak.com.baldha.model.login.getshop.Shop;
@@ -87,6 +89,22 @@ public class Database extends SQLiteOpenHelper {
             + PRODUCTNAME + " TEXT," + PRODUCTDESCRIPTION + " TEXT," + CATEGORYID + " TEXT" + ")";
 
 
+    // Order Variable and query
+//    productMap.put("userID", USERID);
+//        productMap.put("shopID", shopID);
+//        productMap.put("productID", ProductID);
+//        productMap.put("categoryID", CategoryID);
+//        productMap.put("batterylvl", String.valueOf(level));
+//        productMap.put("lat", String.valueOf(Lat));
+//        productMap.put("long", String.valueOf(Lon));
+//        productMap.put("qnt", Quantity);
+
+    private static final String TABLE_ORDER = "Order";
+    private static final String BETTERYLEVEL = "BetteryLevel";
+    private static final String QUANTITY = "Quantity";
+
+    String CREATE_ORDER_TABLE = "CREATE TABLE " + TABLE_ORDER + "(" + ID + " INTEGER PRIMARY KEY," + SHOPID + " TEXT," + PRODUCTID + " TEXT," + CATEGORYID + " TEXT," + BETTERYLEVEL + " TEXT," + LAT + " TEXT," + LON + " TEXT," + QUANTITY + " TEXT)";
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -101,6 +119,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_PRODUCT_TABLE);
         db.execSQL(CREATE_NEW_SHOP_TABLE);
+        db.execSQL(CREATE_ORDER_TABLE);
     }
 
     @Override
@@ -468,5 +487,88 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_NEW_SHOP + " WHERE " + ID + " = " + Id);
         db.close();
     }
+
+
+    // Order Functions
+
+    //New Added Shop
+    public void InsertOrder(OrderInsert order) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SHOPID, order.getSHOPID());
+        values.put(PRODUCTID, order.getPRODUCTID());
+        values.put(CATEGORYID, order.getCATEGORYID());
+        values.put(BETTERYLEVEL, order.getBETTERYLEVEL());
+        values.put(LAT, order.getLAT());
+        values.put(LON, order.getLON());
+        values.put(QUANTITY, order.getQUANTITY());
+
+
+        // Inserting Row
+        db.insert(TABLE_ORDER, null, values);
+        db.close();
+    }
+
+    // Get ShopList
+    public ArrayList<OrderInsert> getAllOrder() {
+        ArrayList<OrderInsert> OrderList = new ArrayList<OrderInsert>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ORDER;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                OrderInsert order = new OrderInsert();
+                order.setID(cursor.getString(0));
+                order.setSHOPID(cursor.getString(1));
+                order.setPRODUCTID(cursor.getString(2));
+                order.setCATEGORYID(cursor.getString(3));
+                order.setBETTERYLEVEL(cursor.getString(4));
+                order.setLAT(cursor.getString(5));
+                order.setLON(cursor.getString(6));
+                order.setQUANTITY(cursor.getString(7));
+
+
+                // Adding Area to list
+                OrderList.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return OrderList;
+    }
+
+    //get Shop Count
+    public int getNewOrderCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_ORDER;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+    //Delete Record()
+    public void deleteNewOrder(String Id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_ORDER + " WHERE " + ID + " = " + Id);
+        db.close();
+    }
+
+    //Delete Product()
+    public void deleteOrder() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM " + TABLE_ORDER);
+        db.close();
+    }
+
 
 }
